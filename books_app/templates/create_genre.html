@@ -4,6 +4,16 @@
 
 <p>Genre creation form.</p>
 
-<!-- TODO: Add a <form> element here and use the form variable to show the labels & fields -->
+<form method="POST" action="{{ url_for('main.create_genre') }}">
+    {{ form.csrf_token }}
+    <fieldset>
+        <legend>Add a New Genre</legend>
+
+        {{ form.name.label }}
+        {{ form.name(class="form-control") }}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+</form>
 
 {% endblock %}

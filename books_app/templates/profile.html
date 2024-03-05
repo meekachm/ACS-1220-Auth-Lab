@@ -3,19 +3,16 @@
 {% block content %}
 
 <p>
-Welcome to {{ username }}'s profile.
+Welcome to {{ user.username }}'s profile.
 </p>
 
-<!-- TODO: Display the user's actual favorites here -->
-
 <p>
-    {{ username }}'s favorite books are:
+    {{ user.username }}'s favorite books are:
 
     <ul>
-        <li>Your</li>
-        <li>Favorites</li>
-        <li>Go</li>
-        <li>Here</li>
+        {% for book in user.favorite_books %}
+            <li>{{ book.title }} by {{ book.author }}</li>
+        {% endfor %}
     </ul>
 </p>
 

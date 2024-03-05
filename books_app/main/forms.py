@@ -19,22 +19,34 @@ class BookForm(FlaskForm):
 
 class AuthorForm(FlaskForm):
     """Form to create an author."""
-
-    # TODO: Fill out the fields in this class for:
-    # - the author's name
-    # - the author's biography (hint: use a TextAreaField)
-    # - a submit button
+    name = StringField('Author Name', 
+        validators=[DataRequired(), Length(min=3, max=80)])
+    biography = StringField('Biography', 
+        validators=[DataRequired(), Length(min=3, max=500)])
+    submit = SubmitField('Submit')
 
     # STRETCH CHALLENGE: Add more fields here as well as in `models.py` to
     # collect more information about the author, such as their birth date,
     # country, etc.
-    pass
+
 
 
 class GenreForm(FlaskForm):
     """Form to create a genre."""
+    name = StringField('Genre Name', 
+        validators=[DataRequired(), Length(min=3, max=30)])
+    submit = SubmitField('Submit')
 
-    # TODO: Fill out the fields in this class for:
-    # - the genre's name (e.g. fiction, non-fiction, etc)
-    # - a submit button
-    pass
+
+class UserForm(FlaskForm):
+    """Form to create a user."""
+    username = StringField('Username', 
+        validators=[DataRequired(), Length(min=3, max=30)])
+    password = PasswordField('Password', 
+        validators=[DataRequired(), Length(min=6, max=80)])
+    submit = SubmitField('Submit')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('Username already taken. Please choose another.')
